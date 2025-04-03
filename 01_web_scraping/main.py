@@ -17,7 +17,6 @@ options.add_argument("--headless")
 browser = webdriver.Firefox(service=Service(
     GeckoDriverManager().install()), options=options)
 
-# browser.implicitly_wait(2)
 
 browser.get('https://www.dentalcremer.com.br/')
 wait = WebDriverWait(browser, 10)
@@ -31,12 +30,12 @@ except:
     print("No cookie popup found.")
 
 product_data = []
+itens_amount = len(data['Itens'])
+counter = 0
 
 for item in data['Itens']:
-
+    counter = counter + 1
     try:
-        print('1,5 seconds')
-        time.sleep(1.5)
         search_box = wait.until(
             EC.presence_of_element_located((By.ID, 'search')))
         search_box.clear()
@@ -46,14 +45,11 @@ for item in data['Itens']:
     except Exception as e:
         print(f'Item {item} not found.')
 
-    print('2 seconds')
     time.sleep(2)
 
     try:
         wait.until(EC.presence_of_element_located(
             (By.XPATH, '//*[@id="linx-search"]/div[2]/div[3]/div[1]/div[1]/div[3]/ol/li[1]/div')))
-
-        print('2 seconds')
         time.sleep(2)
 
         product_name = wait.until(EC.presence_of_element_located(
@@ -64,17 +60,19 @@ for item in data['Itens']:
 
         product_price = product_price.replace('R$', '')
 
-        print(f"Retrieved: {product_name} - {product_price}")
+        print(
+            f"Retrieved {counter}/{itens_amount}: {product_name} - {product_price}")
         product_data.append({"Product": product_name, "Price": product_price})
 
     except Exception as e:
-        print(f"Could not find item {item} due an error: {e}")
+        print(
+            f"Could not find item {item} ({counter}/{itens_amount}) due an error: {e}")
         product_data.append({"Product": item, "Price": "Not found"})
 
 df = pd.DataFrame(product_data)
-now = str(dt.now()).strip().replace(':', '').strip('.')[0]
+now = str(dt.now()).replace(' ', '_').replace(':', '_').split('.')[0]
 df.to_csv(
-    f'01_web_scraping/data/{now}_product_prices_headless.csv', index=False)
+    f'01_web_scraping/data/{now}_product_prices.csv', index=False)
 print("Data saved to product_prices.csv")
 
 browser.quit()
