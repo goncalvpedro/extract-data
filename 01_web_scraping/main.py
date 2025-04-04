@@ -9,7 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.firefox import GeckoDriverManager
 from datetime import datetime as dt
-
+from analysis import executioner
 data = pd.read_csv('01_web_scraping/data/data.csv')
 
 options = Options()
@@ -76,3 +76,5 @@ df.to_csv(
 print("Data saved to product_prices.csv")
 
 browser.quit()
+
+executioner()
