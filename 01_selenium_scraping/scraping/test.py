@@ -69,9 +69,9 @@ def scrape_item(data):
         except Exception as e:
             print(f"Could not find item {item} ({counter}/{itens_amount}) due to error: {e}")
 
-            os.makedirs("errors", exist_ok=True)
+            os.makedirs(r"01_selenium_scraping/errors", exist_ok=True)
             safe_item = item.replace(' ', '_').replace('/', '_')
-            with open(f"errors/{config.NOW}_{safe_item}_error.html", "w", encoding="utf-8") as f:
+            with open(f"01_selenium_scraping/errors/{config.NOW}_{safe_item}_error.html", "w", encoding="utf-8") as f:
                 f.write(browser.page_source)
 
             product_data.append({"Product": item, "Price": "Not found"})
