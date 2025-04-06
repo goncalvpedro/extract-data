@@ -17,13 +17,14 @@ DATA_FOLDER = PROJECT_URL / 'data'
 RAW_DATA_FOLDER = DATA_FOLDER / 'raw'
 PROCESSED_DATA_FOLDER = DATA_FOLDER / 'processed'
 
+# SOURCE
 SCRAPING_SOURCE = 'https://www.dentalcremer.com.br/'
 
 # HTML elements
 COOKIES_ID = 'onetrust-accept-btn-handler'
 SEARCH_ID = 'search'
 
-XPATH_PRODUCT = '//*[@id="linx-search"]/div[2]/div[3]/div[1]/div[1]/div[3]/ol/li[1]/div'
+XPATH_PRODUCT_TILE = '//*[@id="linx-search"]/div[2]/div[3]/div[1]/div[1]/div[3]/ol/li[1]/div'
 XPATH_PRODUCT_NAME = '/html/body/div[2]/main/div[4]/div/div[2]/div/div[2]/div[3]/div[1]/div[1]/div[3]/ol/li[1]/div/div[1]/h2/strong/a/span'
 XPATH_PRODUCT_PRICE = '/html/body/div[2]/main/div[4]/div/div[2]/div/div[2]/div[3]/div[1]/div[1]/div[3]/ol/li[1]/div/div[1]/div[3]/div/span[2]/span/span/span'
 
