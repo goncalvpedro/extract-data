@@ -1,14 +1,1 @@
-# Environment variables
-*.env
-
-# Python cache files
-__pycache__/
-*.py[cod]
-
-# IDE/editor configurations
-.vscode/
-.idea/
-
-# OS-specific files
-.DS_Store
-Thumbs.db
+\01_selenium_scraping/.env
