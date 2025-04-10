@@ -62,7 +62,7 @@ def scrape_item(data):
             ).text
 
 
-            print(f"Retrieved {counter}/{itens_amount}: {product_name} - {product_price}")
+            print(f"Retrieved {counter}/{itens_amount}: {product_name} / {product_price}")
             product_data.append({"Product": product_name, "Price": product_price})
 
 
@@ -72,7 +72,7 @@ def scrape_item(data):
             os.makedirs(r"01_selenium_scraping/errors", exist_ok=True)
             safe_item = item.replace(' ', '_').replace('/', '_')
             with open(f"01_selenium_scraping/errors/{config.NOW}_{safe_item}_error.html", "w", encoding="utf-8") as f:
-                f.write(browser.page_source)
+                f.write(browser.get_log('browser'))
 
             product_data.append({"Product": item, "Price": "Not found"})
 
