@@ -3,12 +3,9 @@
 
 # Python cache files
 __pycache__/
-*.py[cod]
 
 # IDE/editor configurations
 .vscode/
-.idea/
 
-# OS-specific files
-.DS_Store
-Thumbs.db
+.\src\database\db_manipulation.py
+

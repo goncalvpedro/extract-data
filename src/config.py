@@ -8,7 +8,7 @@ from datetime import datetime as dt
 NOW = dt.now().strftime("%Y-%m-%d_%H-%M-%S")
 
 # Base project path
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[0]
 
 CSV_URL = PROJECT_ROOT / 'materials.csv'
 

@@ -5,7 +5,6 @@ BASE_URL = r'01_selenium_scraping\data\raw'
 
 dirs = os.listdir(BASE_URL)
 
-
 def analysis(data):
     data = data.drop_duplicates().reset_index(drop=True)
     data = data.fillna('Not found')
