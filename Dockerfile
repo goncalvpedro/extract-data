@@ -1,6 +1,5 @@
-FROM python:3.12-slim
+FROM python:3.13-slim
 
-# System dependencies
 RUN apt-get update && apt-get install -y \
     firefox-esr \
     wget \
@@ -23,18 +22,13 @@ RUN apt-get update && apt-get install -y \
     libgtk-3-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# Set workdir
 WORKDIR /app
 
-# Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy app
 COPY . .
 
-# Expose a port (if applicable)
 EXPOSE 6060
 
-# Run the script
 CMD ["python", "src/scraping/scraper.py"]

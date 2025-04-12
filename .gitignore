@@ -1,10 +1,7 @@
-# Environment variables
 *.env
 
-# Python cache files
 __pycache__/
 
-# IDE/editor configurations
 .vscode/
 
 .\src\database\db_manipulation.py
