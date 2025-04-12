@@ -3,7 +3,7 @@
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
 [![Selenium](https://img.shields.io/badge/Selenium-%23430098.svg?style=flat&logo=selenium&logoColor=white)](https://www.selenium.dev/)
 [![Pandas](https://img.shields.io/badge/Pandas-%23150458.svg?style=flat&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
-[![Beautiful Soup](https://img.shields.io/badge/BeautifulSoup-4.x-green.svg)](https://www.crummy.com/software/BeautifulSoup/)
+[![Docker](https://img.shields.io/badge/BeautifulSoup-4.x-green.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
 ![GitHub last commit](https://img.shields.io/github/last-commit/goncalvpedro/extract-data)
@@ -11,12 +11,12 @@
 
 ## Overview
 
-**Extract Data** is a Python-based web scraping tool designed to efficiently extract information from websites. It leverages the power of **Selenium** for dynamic content rendering and **Pandas** for structured data manipulation and storage. This repository provides a flexible framework for automating data extraction tasks, making it easier to gather valuable information from the web.
+**Extract Data** is a Python-based web scraping tool designed to efficiently extract information from websites. It leverages the power of **Selenium** for dynamic content rendering, **PostgreSQL** to storage scraped information and **Pandas** for structured data manipulation, all of this inside **Docker Containers**.
 
 ## Key Features
 
 * **Dynamic Content Handling:** Utilizes Selenium to interact with web pages that rely heavily on JavaScript, ensuring accurate data retrieval even for dynamically loaded content.
-* **Structured Data Output:** Employs Pandas DataFrames to organize extracted data into a tabular format, facilitating easy analysis and further processing.
+* **Structured Data Output:** 
 * **CSS Selector Based Extraction:** Uses CSS selectors (and optionally XPath) for precise targeting of HTML elements, making the scraping process robust and adaptable.
 * **Modular Design:** The codebase is structured to promote reusability and easy modification for different scraping tasks.
 * **Clear and Concise Code:** Written with readability and maintainability in mind.
@@ -25,11 +25,12 @@
 
 This project utilizes the following technologies:
 
-* **Python (>= 3.9):** The primary programming language used for the entire project.
+* **Python (>= 3.12):** The primary programming language used for the entire project.
 * **Selenium:** A powerful browser automation library used to interact with web pages, handle JavaScript rendering, and navigate complex websites.
 * **Pandas:** A data manipulation and analysis library providing efficient data structures (like DataFrames) for storing and working with extracted data.
-* **Beautiful Soup:** A Python library for parsing HTML and XML documents. While Selenium handles dynamic content, Beautiful Soup can be useful for parsing the static HTML source or for simpler scraping tasks within the same workflow.
 * **Webdriver Manager:** A library that automatically manages browser drivers (e.g., ChromeDriver, GeckoDriver) required by Selenium, simplifying the setup process.
+* **PostgreSQL**
+* **Docker**
 
 ## Quick Note About Web Scraping with Selenium
 
@@ -65,7 +66,8 @@ Provide clear and concise instructions on how to use the scripts in your reposit
 
 1.  **Configure the scraping parameters:**
     * Open the main script (e.g., `scraper.py`).
-    * Modify the target URL(s) and CSS selectors according to the website you want to scrape.  This often involves inspecting the website's HTML structure using your browser's developer tools.
+    * Modify the target URL(s) and CSS selectors according to the website you want to scrape.  This often involves inspecting the website's HTML structure using your browser's developer tools. Add more fields as you need to extract more information.
+    * Make sure you have Firefox installed locally.
     * Adjust any other relevant settings (e.g., headless mode, waiting times) within the script.  Headless mode (`options.headless = True`) allows Selenium to run without opening a visible browser window.
 
 2.  **Run the scraper:**
@@ -84,16 +86,27 @@ Provide clear and concise instructions on how to use the scripts in your reposit
         df = pd.read_csv('output.csv')
         print(df.head())
         ```
+4.  **Adapt database tables for your application**
+
+    * Go to **src/database/init.sql** and adapt table creation and initial data seeding. This file is responsible for populating tables before the scraper script tries to read its data. This is important if you are running with **Docker** or else you will receive an error "No materials found or failed to load materials." in line 39 of scraper.py. If you are running locally you can go directly into pgAdmin and create databases, tables and populates them with initial data before running int Python.
+
+
+5.  **Rebuild Docker Compose**
+
+    * After all changes were made and the script is running fine locally, apply changes in **docker-compose.yml** and compose it.
+
+        ```bash
+        docker compose up --build
+        ```
 
 ## Best Practices
 
-* **Respect `robots.txt`:** Before scraping any website, check its `robots.txt` file to understand the rules and restrictions set by the website owner.  You can usually find it at `http://www.example.com/robots.txt`.
 * **Use appropriate waiting times:** Avoid overloading the website's server by adding delays between requests.  Selenium provides methods like `time.sleep()` or explicit waits (`WebDriverWait`) to handle this.
 * **Handle exceptions:** Implement error handling to gracefully manage unexpected situations, such as network errors, changes in the website's structure, or anti-scraping measures.
 * **Be mindful of data usage:** Ensure that you are using the scraped data ethically and legally, and that you comply with the website's terms of service and any relevant privacy regulations.
 * **User-Agent Rotation**:  Websites can identify and block scrapers by looking at the User-Agent header.  Rotating through a list of User-Agent strings can help to avoid detection.
 * **Headless Mode**: Running the browser in headless mode (without a GUI) can sometimes help to avoid detection, and it also reduces resource consumption.  However, some sites specifically target headless browsers.
-* **CAPCHA Solving**:  Some websites use CAPTCHAs to prevent automated access.  Consider using a CAPTCHA solving service (with caution, and ensuring compliance with terms of service) if you encounter these frequently.
+
 
 ## Contributing
 
