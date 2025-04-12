@@ -126,6 +126,3 @@ This project is licensed under the [MIT License](LICENSE). See the `LICENSE` fil
 * The developers and contributors of the Selenium, Pandas, and Beautiful Soup libraries for creating such powerful and versatile tools.
 * The `webdriver-manager` library for simplifying browser driver management.
 
-## Issues along the way
-
-[Feel free to add specific issues and solutions encountered during development or usage here.  This section can be very helpful for others who might encounter similar problems.]
